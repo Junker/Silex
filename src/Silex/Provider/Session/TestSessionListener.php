@@ -12,26 +12,28 @@
 namespace Silex\Provider\Session;
 
 use Pimple\Container;
-use Symfony\Component\HttpKernel\EventListener\TestSessionListener as BaseTestSessionListener;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\EventListener\AbstractTestSessionListener;
 
 /**
  * Simulates sessions for testing purpose.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TestSessionListener extends BaseTestSessionListener
+class TestSessionListener extends AbstractTestSessionListener
 {
     private $app;
 
-    public function __construct(Container $app)
+    public function __construct(Container $app, array $sessionOptions = [])
     {
         $this->app = $app;
+        parent::__construct($sessionOptions);
     }
 
-    protected function getSession()
+    protected function getSession(): ?SessionInterface
     {
         if (!isset($this->app['session'])) {
-            return;
+            return null;
         }
 
         return $this->app['session'];
