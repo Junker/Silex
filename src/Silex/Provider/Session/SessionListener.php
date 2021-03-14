@@ -13,14 +13,14 @@ namespace Silex\Provider\Session;
 
 use Pimple\Container;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpKernel\EventListener\SessionListener as BaseSessionListener;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 
 /**
  * Sets the session in the request.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SessionListener extends BaseSessionListener
+class SessionListener extends AbstractSessionListener
 {
     private $app;
 
